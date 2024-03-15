@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import './index.less'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -21,39 +21,8 @@ import Contact, {
   action as contactAction
 } from "./routes/contact";
 import Index from './routes/index.jsx';
+import Login from '@/pages/Login/LoginView.jsx';
 
-// 另一种路由风格
-/* const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route
-      path="/"
-      element={<Root />}
-      loader={rootLoader}
-      action={rootAction}
-      errorElement={<ErrorPage />}
-    >
-      <Route errorElement={<ErrorPage />}>
-        <Route index element={<Index />} />
-        <Route
-          path="contacts/:contactId"
-          element={<Contact />}
-          loader={contactLoader}
-          action={contactAction}
-        />
-        <Route
-          path="contacts/:contactId/edit"
-          element={<EditContact />}
-          loader={contactLoader}
-          action={editAction}
-        />
-        <Route
-          path="contacts/:contactId/destroy"
-          action={destroyAction}
-        />
-      </Route>
-    </Route>
-  )
-); */
 const router = createBrowserRouter([
   {
     path: "/",
@@ -91,6 +60,10 @@ const router = createBrowserRouter([
 
     ]
   },
+  {
+    path: "/login",
+    element: <Login />
+  }
 
 ]);
 
