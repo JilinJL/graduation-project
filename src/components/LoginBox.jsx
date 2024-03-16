@@ -7,24 +7,26 @@ const LoginBox = ()=>{
 
     const [isLogin, setIsLogin] = React.useState(true);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
+    const [phoneLogin, setPhoneLogin] = useState(true);
+
 
     const throttledHandleResize = useCallback(
         Utils.throttle(() => {
-          const mediaQueryList = window.matchMedia('(max-width: 768px)');
+          const mediaQueryList = window.matchMedia('(max-width: 1440px)');
           setIsSmallScreen(mediaQueryList.matches);
-        }, 500),
+        }, 50),
         []
       );
 
     useEffect(() => {
-        const mediaQueryList = window.matchMedia('(max-width: 768px)');
+        const mediaQueryList = window.matchMedia('(max-width: 1440px)');
         setIsSmallScreen(mediaQueryList.matches); // 初始状态
         window.addEventListener('resize', throttledHandleResize);
       }, []);
     return (
         <div className="login-box">
         <div className="shell">
-        <div className={"container","a-container"} id="a-container">
+        <div className={"container","a-container"} style={{display: phoneLogin?"block":"none"}} id="a-container">
             <form action="" method="" className="form" id="a-form">
                 <h2 className={"form_title","title"}>创建账号</h2>
                 <div className="form_icons">
@@ -36,13 +38,13 @@ const LoginBox = ()=>{
                 <input type="text" className="form_input" placeholder="Name"/>
                 <input className="form_input" type="email" placeholder="Email" />
                 <input className="form_input" type="password" placeholder="Password" />
-                <a className="form_link" onClick={()=>setIsLogin(true)}>已有账号？去登陆</a>
+                <a className="form_link" onClick={isSmallScreen?()=>setPhoneLogin(false):()=>setIsLogin(true)}>已有账号？去登陆</a>
                 <br />
                 <button className={"form_button","button","submit"}>注册</button>
             </form>
         </div>
 
-        <div className={"container","b-container"} id="b-container">
+        <div className={"container","b-container"} style={{display: isSmallScreen&&phoneLogin?"none":"block"}} id="b-container">
             <form action="" method="" className="form" id="b-form">
                 <h2 className={"form_title","title"}>登陆</h2>
                 <div className="form_icons">
@@ -52,7 +54,7 @@ const LoginBox = ()=>{
                 </div>
                 <input type="text" className="form_input" placeholder="Email" />
                 <input  className="form_input" type="password" placeholder="Password" />
-                <a className="form_link" onClick={isSmallScreen?()=>{console.log('go')}:()=>setIsLogin(false)}>没有账号？去注册</a>
+                <a className="form_link" onClick={isSmallScreen?()=>setPhoneLogin(true):()=>setIsLogin(false)}>没有账号？去注册</a>
                 {/* TODO 登录注册移动端适配逻辑  前端接口部分  路由配置*/}
                 <br />
                 <button className={"form_button","button","submit"}>登陆</button>
