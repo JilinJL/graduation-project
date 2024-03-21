@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': '/src', // 将 @ 设置为项目根目录下的 src 目录
     },
   },
 })

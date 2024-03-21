@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useCallback} from "react"
-import './LoginBox.less'
-import Utils from "../utils/Utils";
+import './index.less'
+import Utils from "../../utils/Utils";
 
 
 const LoginBox = ()=>{

@@ -1,14 +1,34 @@
-export default function Index() {
-    return (
-        <p id="zero-state">
-            
-            <br />
+import Login from '@/pages/Login/LoginView.jsx';
+import {
+    createBrowserRouter,
+    RouterProvider,
+  } from "react-router-dom";
+  import Home from "@/pages/Home/HomeView.jsx"
+  import ErrorPage from '@/error-page.jsx';
 
-            情感分析系统
+  
+const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          errorElement: <ErrorPage/>,
+          children:[
+            {
+              path: "/contact",
+              element: <div style={{width: '80%',height:'100%',border: '1px solid black',marginLeft: '20px'}}>内容框</div>
+            }
 
-            <div>
-                <input type="text" />
-            </div>
-        </p>
-    );
-}
+          ]
+        }
+      ]
+    },
+    {
+      path: "/login",
+      element: <Login />
+    }
+  ]);
+
+  export default router;

@@ -1,72 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.less'
+import router from '@/routes/index.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Root, {
-  loader as rootLoader,
-  action as rootAction,
-} from "./routes/root.jsx"
-import ErrorPage from './error-page.jsx';
-import EditContact, {
-  action as editAction,
-} from "./routes/edit";
-import {
-  action as deleteAction,
-} from "./routes/destroy";
-import Contact, {
-  loader as contactLoader,
-  action as contactAction
-} from "./routes/contact";
-import Index from './routes/index.jsx';
-import Login from '@/pages/Login/LoginView.jsx';
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    loader: rootLoader,
-    action: rootAction,
-    children: [
-      {
-        errorElement: <ErrorPage/>,
-        children:[
-          {
-            index: true,
-            element: <Index />
-          },
-          {
-            path: "contacts/:contactId",
-            element: <Contact />,
-            loader: contactLoader,
-            action: contactAction,
-          },
-          {
-            path: "contacts/:contactId/edit",
-            element: <EditContact />,
-            loader: contactLoader,
-            action: editAction,
-          },
-          {
-            path: "contacts/:contactId/destroy",
-            errorElement: <div>Oops! There was an error.</div>,
-            action: deleteAction,
-          },
-        ]
-      }
-
-    ]
-  },
-  {
-    path: "/login",
-    element: <Login />
-  }
-
-]);
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
