@@ -1,9 +1,12 @@
 import React from 'react';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { Avatar, Layout, Menu, theme } from 'antd';
 import {Outlet} from 'react-router-dom'
 import { observer } from 'mobx-react';
 import store from './HomeModel'
+import HomeSider from '@/components/HomeSider';
+import HomeHeader from '../../components/HomeHeader';
+
 const { Header, Content, Footer, Sider } = Layout;
 const items = [UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
   (icon, index) => ({
@@ -16,34 +19,19 @@ const HomeView = () => {
 
 const getNum = () =>{
   store.getNum();
-  
+}
+const userData = {
+  userName: '小明'
 }
   return (
     <Layout>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div className="demo-logo-vertical" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
-      </Sider>
+      <HomeSider userInfo={userData} />
       <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: 'blue',
-          }}
-        />
+        <HomeHeader/>
         <Content
           style={{
             width: '100%',
-            background:'green',
+            background:'#ffffff',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -60,7 +48,7 @@ const getNum = () =>{
             textAlign: 'center',
           }}
         >
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          Ant Design ©{new Date().getFullYear()} Created by 林翰平-202031061530
         </Footer>
       </Layout>
     </Layout>

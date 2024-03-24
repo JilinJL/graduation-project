@@ -18,7 +18,7 @@ const router = createBrowserRouter([
           children:[
             {
               path: "/contact",
-              element: <div style={{width: '80%',height:'100%',border: '1px solid black',marginLeft: '20px'}}>内容框</div>
+              element: <div style={{width: '94%',height:'100%',border: '1px solid black',marginLeft: '20px'}}>内容框</div>
             }
 
           ]
