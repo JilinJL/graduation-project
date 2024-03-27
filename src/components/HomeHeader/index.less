@@ -1,10 +1,33 @@
 @import "@/index.less";
-@background-color: #ffffff;
+
 
 .home-header{
     background-color: @background-color;
+    
+
+
+    
+
+
+
+
 
     .title{
         background-color: @background-color;
     }
+
+    /* 缩放适配 */
+    @media screen and (max-width: @width-max) and (min-width: @width-middle) {
+        .title {
+            zoom: 0.7;
+        }
+    }
+    
+    /* 缩放适配 */
+    @media screen and (max-width: @width-middle) {
+        .title {
+            visibility:hidden;
+        }
+    }
+    
 }

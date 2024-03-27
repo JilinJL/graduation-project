@@ -1,1 +1,55 @@
 @import "@/index.less";
+
+.home-sider>div{
+    box-shadow: 2px 1px 1.2rem #ccc;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+
+    .manage_header{
+        display: flex;
+        gap: 0.3rem;
+        margin-bottom: 0.6rem;
+
+
+        .manage_header_search{
+
+        }
+
+        .manage_header_button{
+
+        }
+
+    }
+
+    .list{
+        flex:1;
+        overflow: scroll;
+    }
+
+    .list>div{
+        border-radius: 1rem;
+    }
+
+    .manage_footer{
+        position: relative;
+        bottom: 0px;
+        display: flex;
+        width: 100%;
+        align-self: end;
+
+        
+
+        .user_icon{
+            transition: transform 0.3s ease-in-out;
+        }
+        .user_icon:hover{
+            transform: rotate(180deg);
+        }
+    }
+    .manage_footer:hover{
+        background-color: #ededed;
+
+    }
+}

@@ -10,13 +10,7 @@ import HomeContent from '@/components/HomeContent';
 import HomeModel from './HomeModel'
 const store = new HomeModel();
 const { Header, Content, Footer, Sider } = Layout;
-const items = [UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
-  (icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-  }),
-);
+
 const HomeView = () => {
 
 const getNum = () =>{
@@ -26,7 +20,7 @@ const userData = {
   userName: '小明'
 }
   return (
-    <Layout>
+    <Layout style={{padding: "5px",borderRadius: "20px"}}>
       <HomeSider userInfo={userData} />
       <Layout>
         <HomeHeader  store={store}/>

@@ -3,7 +3,7 @@ import './index.less'
 import Utils from "../../utils/Utils";
 import { Typography } from 'antd';
 const { Title } = Typography;
-import { Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme,Button } from 'antd';
 const { Header,Content, Footer, Sider } = Layout;
 import {Outlet} from 'react-router-dom'
 import {observer} from 'mobx-react'
@@ -25,7 +25,7 @@ const HomeContent = observer((props)=>{
       {/* 内容展示位置 */}
       内容区
       <Outlet />
-      <button onClick={props.store.getNum}>test</button>
+      <Button onClick={props.store.getNum}>test</Button>
       {props.store.myNumber}
     </Content>   
     )
