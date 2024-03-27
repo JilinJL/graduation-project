@@ -1,25 +1,26 @@
 import { createContext, useContext } from 'react';
-import { observable, action } from 'mobx';
+import { makeObservable, observable, action, autorun, computed } from "mobx";
 
 class HomeModel {
-  todos = [];
-  pendingRequests = 0;
+  myNumber;
 
   constructor() {
+    this.myNumber = 123;
     makeObservable(this, {
-      Number: observable,
+      myNumber: observable,
       getNum: action,
     });
+    this.getNum= this.getNum.bind(this);
     autorun(() => console.log(this.report));
   }
 
   get Number() {
-    return this.Number;
+    return this.myNumber;
   }
 
-
   getNum() {
-    this.Number=Math.random().toFixed(2) * 100;
+    this.myNumber = Math.random().toFixed(2) * 100;
+    console.log(this.myNumber);
   }
 }
 

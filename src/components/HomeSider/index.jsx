@@ -19,11 +19,12 @@ const HomeSider = (props)=>{
             breakpoint="lg"
             collapsedWidth="0"
             onBreakpoint={(broken) => {
-            console.log(broken);
             }}
             style={{backgroundColor: '#f2f2f2'}}
         >
-            
+            <div className="manage">
+              <input type="search" />
+            </div>
             </Sider>       
     )
 }
