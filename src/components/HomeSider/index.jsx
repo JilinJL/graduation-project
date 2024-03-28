@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./index.less";
+import { useNavigate } from "react-router-dom";
 import Utils from "../../utils/Utils";
-import { Layout, Menu, theme, Input ,Button } from "antd";
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import { Layout, Menu, theme, Input, Button, Popover, List, Modal } from "antd";
+import { UploadOutlined, UserOutlined, LoginOutlined, GithubOutlined,QuestionCircleOutlined } from "@ant-design/icons";
 const { Header, Content, Footer, Sider } = Layout;
 import { Collapse } from "antd";
 
@@ -28,26 +29,82 @@ const items = [
 	},
 ];
 
+const CartContent = () => {
+	<div style={{ width: "100%" }}>123</div>;
+};
 
 const HomeSider = props => {
+	// 设置注销路由
+	const navigate = useNavigate();
+	const handleLogout = () => {
+		// 清除用户凭证
 
-  const handleNewAnalysis = () =>{
-    console.log("New Analysis")
-  }
+		// 然后执行路由跳转
+		navigate("/login", { replace: true }); // 或者用 navigate(-1) 返回上一页
+	};
+
+	const [open, setOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const hide = () => {
+		setOpen(false);
+	};
+	const handleOpenChange = newOpen => {
+		setOpen(newOpen);
+	};
+	const showModal = () => {
+		setIsModalOpen(true);
+	};
+	const handleNewAnalysis = () => {
+		console.log("New Analysis");
+	};
 
 	return (
-		<Sider className='home-sider' breakpoint='lg' collapsedWidth='0' onBreakpoint={broken => {}} width={"15rem"} style={{ backgroundColor: "#f2f2f2" }} >
+		<Sider className='home-sider' breakpoint='lg' collapsedWidth='0' onBreakpoint={broken => {}} width={"15rem"} style={{ backgroundColor: "#f2f2f2" }}>
+			<div className='manage_header'>
+				<Input className='manage_header_search' placeholder='搜索分析记录' />
+				<Button className='manage_header_button' onClick={handleNewAnalysis}>
+					新建分析
+				</Button>
+			</div>
+			<div className='list'>
+				<Collapse items={items} defaultActiveKey={["1"]} />
+			</div>
+			<div className='manage_footer'>
+				<Popover
+					content={
+						<div style={{ width: "8rem" }}>
+							<ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
+								<li></li>
+								<li onClick={showModal}>
+									<a>
+										<QuestionCircleOutlined /> 关于此项目
+									</a>
+								</li>
+								<li onClick={handleLogout}>
+									<a>
+										<LoginOutlined /> 注销
+									</a>
+								</li>
+							</ul>
+						</div>
+					}
+					trigger='click'
+					open={open}
+					onOpenChange={handleOpenChange}
+					arrow={false}
+				>
+					<UserOutlined
+						className='user_icon'
+						style={{ display: "inline-block", padding: "0.2rem", fontSize: "2rem", borderRadius: "50%", border: "1px solid #ccc" }}
+					/>
+					<div className='username'>用户名</div>
+				</Popover>
+			</div>
 
-				<div className='manage_header'>
-        <Input className="manage_header_search"  placeholder='搜索分析记录' />
-          <Button className="manage_header_button" onClick={handleNewAnalysis}>新建分析</Button>
-				</div>
-				<div className='list'>
-					<Collapse items={items} defaultActiveKey={["1"]} />
-				</div>
-        <div className="manage_footer">
-          <UserOutlined className="user_icon" style={{padding:"0.2rem",fontSize: '2rem',borderRadius:"50%",border: "1px solid #ccc"}} />
-        </div>
+			<Modal title='关于项目' open={isModalOpen} onCancel={()=>setIsModalOpen(false)} footer={null} >
+				<a href='https://github.com/JilinJL/graduation-project' target="_blank" ><GithubOutlined /></a>
+			</Modal>
 		</Sider>
 	);
 };

@@ -16,6 +16,9 @@ export default {
         //折叠面板
         Collapse: {
             contentBg: "",
+        },
+        Popover:{
+            titleMinWidth:"10rem",
         }
       },
   };

@@ -1,55 +1,67 @@
 @import "@/index.less";
 
-.home-sider>div{
-    box-shadow: 2px 1px 1.2rem #ccc;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content:space-between;
+.home-sider > div {
+	box-shadow: 2px 1px 1.2rem #ccc;
+	padding: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 
-    .manage_header{
-        display: flex;
-        gap: 0.3rem;
-        margin-bottom: 0.6rem;
+	.manage_header {
+		display: flex;
+		gap: 0.3rem;
+		margin-bottom: 0.6rem;
+
+		.manage_header_search {
+		}
+
+		.manage_header_button {
+		}
+	}
+
+	.list {
+		flex: 1;
+		overflow: scroll;
+	}
+
+	.list > div {
+		border-radius: 1rem;
+	}
+
+	.manage_footer {
+		display: flex;
+		width: 100%;
+		user-select: none;
+		cursor: pointer;
+
+		.username {
+			font-style: italic;
+			overflow: hidden;
+            height: 2rem;
+            text-align: center;
+            white-space: nowrap;
+			text-overflow: ellipsis;
+            width: 100%;
+            line-height: 2rem;
+            padding: 0.2rem;
+		}
+
+		.user_icon {
+			transition: transform 0.3s ease-in-out;
+		}
+		.user_icon:hover {
+			transform: rotate(180deg);
+		}
+	}
 
 
-        .manage_header_search{
-
-        }
-
-        .manage_header_button{
-
-        }
-
-    }
-
-    .list{
-        flex:1;
-        overflow: scroll;
-    }
-
-    .list>div{
-        border-radius: 1rem;
-    }
-
-    .manage_footer{
-        position: relative;
-        bottom: 0px;
+    .manage_footer>span{
         display: flex;
         width: 100%;
-        align-self: end;
-
-        
-
-        .user_icon{
-            transition: transform 0.3s ease-in-out;
-        }
-        .user_icon:hover{
-            transform: rotate(180deg);
-        }
     }
-    .manage_footer:hover{
-        background-color: #ededed;
 
-    }
+
+	.manage_footer:hover {
+		background-color: #ededed;
+	}
 }

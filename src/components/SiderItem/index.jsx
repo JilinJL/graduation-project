@@ -4,12 +4,7 @@ import Utils from "../../utils/Utils";
 import { Layout, Menu, theme,Input } from "antd";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { Collapse } from "antd";
-
-const item = (obj) =>{
-  return (
-    <div key={obj}>{obj}</div>
-  )
-}
+import AnalysisTag from "../AnalysisTags"
 
 const items = [
 	{
@@ -25,7 +20,7 @@ const items = [
 	{
 		key: "3",
 		label: "This is panel header 3",
-		children: [1,5,4,8,9,10].map((cur)=>item(cur)),
+		children: [1,5,4,8,9,10].map((cur)=><AnalysisTag props={cur} />),
 	},
 ];
 
