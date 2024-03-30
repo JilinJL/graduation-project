@@ -4,9 +4,10 @@ import lombok.Data;
 
 @Data
 public class Analysis {
-    long id;
-    String contentId;
+    int id;
+    int contentId;
+    long userId;
     String sentimentScore;
     String sentimentLabel;
-
+    String title;
 }

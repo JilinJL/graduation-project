@@ -11,6 +11,6 @@ public class Content {
   private long userId;
   private String contentData;
   private  Date contentTime;
-
+  private String title;
 
 }
