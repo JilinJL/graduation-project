@@ -10,7 +10,6 @@ class HomeModel {
       analysisList: observable,
       getAnalysis: action,
     });
-    autorun(() => console.log(this.report));
   }
 
   async getAnalysis() {
