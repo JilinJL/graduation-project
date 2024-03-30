@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Avatar, Layout, Menu, theme } from 'antd';
 import { observer } from 'mobx-react';
-
+import {toJS} from 'mobx'
+import request from '../../utils/request';
 
 import HomeSider from '@/components/HomeSider';
 import HomeHeader from '@/components/HomeHeader';
@@ -11,11 +12,19 @@ import HomeModel from './HomeModel'
 const store = new HomeModel();
 const { Header, Content, Footer, Sider } = Layout;
 
+
 const HomeView = () => {
 
-const getNum = () =>{
-  store.getNum();
+const fetchData = async ()=>{
+  await store.getAnalysis();
 }
+
+useEffect(() => {
+  fetchData();
+},[])
+
+
+
 const userData = {
   userName: '小明'
 }

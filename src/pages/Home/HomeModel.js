@@ -1,26 +1,34 @@
 import { createContext, useContext } from 'react';
-import { makeObservable, observable, action, autorun, computed } from "mobx";
+import request from '../../utils/request';
+import { makeObservable, observable, action, autorun } from "mobx";
 
 class HomeModel {
-  myNumber;
+  analysisList = [];
 
   constructor() {
-    this.myNumber = 123;
     makeObservable(this, {
-      myNumber: observable,
-      getNum: action,
+      analysisList: observable,
+      getAnalysis: action,
     });
-    this.getNum= this.getNum.bind(this);
     autorun(() => console.log(this.report));
   }
 
-  get Number() {
-    return this.myNumber;
-  }
-
-  getNum() {
-    this.myNumber = Math.random().toFixed(2) * 100;
-    console.log(this.myNumber);
+  async getAnalysis() {
+    try {
+      const analysisList = await request({
+        url: 'analysis/getAnalysis',
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      // 将获取的数据赋值给观察属性 analysisList
+      this.analysisList = analysisList;
+      
+    } catch(e) {
+      console.log(e);
+    }
   }
 }
 

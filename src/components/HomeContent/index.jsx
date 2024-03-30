@@ -25,8 +25,8 @@ const HomeContent = observer((props)=>{
       {/* 内容展示位置 */}
       内容区
       <Outlet />
-      <Button onClick={props.store.getNum}>test</Button>
-      {props.store.myNumber}
+      
+      
     </Content>   
     )
 })
