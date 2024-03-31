@@ -19,21 +19,27 @@ const HomeSider = props => {
 		return content
 	}) */
 
+	const item = (data)=>{
+
+		return <p key={data.id}>{data.title}</p>
+	}
+
+	const sortList = Utils.splitArrayByTime(props.contentList)
 	const items = [
 		{
             key: "1",
             label: "今天",
-            children: <span>123</span>,
+            children: sortList.today.map((data)=>item(data)),
         },
         {
             key: "2",
             label: "一周内",
-            children: <span>123</span>,
+            children: sortList.lastSevenDays.map((data)=>item(data)),
         },
         {
             key: "3",
             label: "更久",
-            children: <span>123</span>,
+            children: sortList.other.map((data)=>item(data)),
         },
 	]
 	// 设置注销路由

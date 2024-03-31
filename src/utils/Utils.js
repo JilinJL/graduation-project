@@ -20,7 +20,44 @@ const Utils = {
         }, remainingTime);
       }
     };
+  },
+  splitArrayByTime(array) {
+    const now = new Date(); // 获取当前时间
+  
+    // 计算今天的时间范围
+    const todayStart = new Date(now);
+    todayStart.setHours(0, 0, 0, 0); // 设置为当天的零点
+    const todayEnd = new Date(now);
+    todayEnd.setHours(23, 59, 59, 999); // 设置为当天的最后一毫秒
+  
+    // 计算七天前的时间
+    const sevenDaysAgo = new Date(now);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6); // 获取七天前的日期
+  
+    // 将数组分成三个部分：今天、七天内和更久
+    const todayArray = [];
+    const lastSevenDaysArray = [];
+    const otherArray = [];
+  
+    array.forEach(item => {
+      const itemTime = new Date(item.content_time);
+  
+      if (itemTime >= todayStart && itemTime <= todayEnd) {
+        todayArray.push(item);
+      } else if (itemTime >= sevenDaysAgo) {
+        lastSevenDaysArray.push(item);
+      } else {
+        otherArray.push(item);
+      }
+    });
+  
+    return {
+      today: todayArray,
+      lastSevenDays: lastSevenDaysArray,
+      other: otherArray
+    };
   }
+  
   };
   
   export default Utils;
