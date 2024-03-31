@@ -1,34 +1,41 @@
-import Login from '@/pages/Login/LoginView.jsx';
+
 import {
-    createBrowserRouter,
-    RouterProvider,
-  } from "react-router-dom";
-  import Home from "@/pages/Home/HomeView.jsx"
-  import ErrorPage from '@/error-page.jsx';
+  createBrowserRouter,
+  useParams,
+  useNavigate,
+  RouterProvider,
+} from "react-router-dom";
+import React from "react"
+import { message } from "antd";
+const Home = React.lazy(() => import('@/pages/Home/HomeView.jsx'));
+const Login = React.lazy(() => import('@/pages/Login/LoginView.jsx'));
+const ErrorPage = React.lazy(() => import('@/error-page.jsx'));
+const Analysis = React.lazy(() => import('@/pages/Analysis/AnalysisView.jsx'));
+import PrivateRoute from "./PrivateRoute";
 
-  
+
+
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Home />,
-      errorElement: <ErrorPage />,
-      children: [
-        { 
-          errorElement: <ErrorPage/>,
-          children:[
-            {
-              path: "/contact",
-              element: <div style={{width: '94%',height:'100%',border: '1px solid black',marginLeft: '20px'}}>内容框</div>
-            }
+  {
+    path: "/",
+    element: <PrivateRoute element={Home} />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "analysis/:analysisId",
+            element: <PrivateRoute element={Analysis} />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <PrivateRoute mark='login' element={Login} />
+  }
+]);
 
-          ]
-        }
-      ]
-    },
-    {
-      path: "/login",
-      element: <Login />
-    }
-  ]);
-
-  export default router;
+export default router;

@@ -7,9 +7,9 @@ import { ConfigProvider } from "antd";
 import theme from "@/assets/theme.js"; // 自定义主题文件路径
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<ConfigProvider theme={theme}>
 			<RouterProvider router={router} />
 		</ConfigProvider>
-	</React.StrictMode>,
+	// </React.StrictMode>,
 );
