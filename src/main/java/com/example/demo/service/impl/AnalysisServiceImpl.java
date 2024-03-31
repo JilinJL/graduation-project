@@ -15,9 +15,13 @@ public class AnalysisServiceImpl extends ServiceImpl<AnalysisMapper, Analysis> i
     @Autowired
     private AnalysisMapper analysisMapper;
 
+
     @Override
-    public Analysis getById(Long id) {
-        return analysisMapper.selectById(id);
+    public List<Analysis> selectByUserId(Long id) {
+        List<Analysis> analysisList = lambdaQuery()
+                .like(Analysis::getUserId, id)
+                .list();
+        return analysisList;
     }
 
     @Override

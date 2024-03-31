@@ -20,7 +20,7 @@ public class ContentController {
     private StudentService studentService;
 
     @ResponseBody
-    @GetMapping("/students")
+    @GetMapping("/getContentById")
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }

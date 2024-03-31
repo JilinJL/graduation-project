@@ -9,10 +9,12 @@ import java.util.List;
 
 @Service
 public interface AnalysisService extends IService<Analysis> {
-    Analysis getById(Long id);
+
     boolean save(Analysis analysis);
     boolean updateById(Analysis analysis);
     boolean removeById(Long id);
 
     List<Analysis> getAllAnalysis();
+
+    List<Analysis> selectByUserId(Long id);
 }
