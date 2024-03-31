@@ -7,10 +7,11 @@ import {
 } from "react-router-dom";
 import React from "react"
 import { message } from "antd";
-const Home = React.lazy(() => import('@/pages/Home/HomeView.jsx'));
-const Login = React.lazy(() => import('@/pages/Login/LoginView.jsx'));
-const ErrorPage = React.lazy(() => import('@/error-page.jsx'));
-const Analysis = React.lazy(() => import('@/pages/Analysis/AnalysisView.jsx'));
+import Home from "@/pages/Home/HomeView"
+import Login from "@/pages/Login/LoginView"
+import ErrorPage from "@/error-page.jsx"
+import AnalysisView from "../pages/Analysis/AnalysisView";
+
 import PrivateRoute from "./PrivateRoute";
 
 
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "analysis/:analysisId",
-            element: <PrivateRoute element={Analysis} />,
+            element: <PrivateRoute element={AnalysisView} />,
           },
         ],
       },

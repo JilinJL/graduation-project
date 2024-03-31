@@ -9,7 +9,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const HomeHeader = props => {
 	return (
-		<div style={{ backgroundColor: "#ffffff", borderBottom: "1px solid rgba(0, 0, 0, 0.1)" }}>
+		<div id='home-header' style={{ backgroundColor: "#ffffff", borderBottom: "1px solid rgba(0, 0, 0, 0.1)" }}>
 			<Header
 				style={{
 					padding: 0,

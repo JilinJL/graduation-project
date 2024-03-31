@@ -89,7 +89,7 @@ const mockData = {
       user_id: 10001,
       content_data: "这是一段一小段聊天内容。",
       content_time: new Date("2024-03-11T08:00:00"),
-      title: "分析一"
+      title: "关于嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡嗡的情感分析"
     },
     {
       id: 12,

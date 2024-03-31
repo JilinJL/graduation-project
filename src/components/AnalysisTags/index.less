@@ -1,2 +1,39 @@
 @import "@/index.less";
 
+
+
+
+.link{
+    display: flex;
+    width: 100%;
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+
+.delete{
+    color: red;
+    display: none;
+}
+
+#sider-item{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	border-bottom: 1px solid #efefef;
+	color: @primary-color-dark;
+	font-family: Lobster;
+	font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#sider-item:hover{
+	background-color: #efefef;
+	cursor: pointer;
+    color:rgb(70, 46, 187);
+}
+
+#sider-item:hover .delete{
+	display: inline-block;
+    color: red;
+}

@@ -25,7 +25,7 @@ const HomeView = () => {
 	};
 
 	useEffect(() => {
-		fetchData();
+		// fetchData();
 		setContentList(mockData.contentList);
 		setAnalysisList(mockData.analysisList);
 	}, []);
@@ -34,10 +34,15 @@ const HomeView = () => {
 		userName: "小明",
 	};
 	return (
-		<Layout style={{ padding: "5px", borderRadius: "20px" }}>
-			<HomeSider userInfo={userData} contentList={contentList} analysisList={analysisList} />
-			<Layout>
+		<Layout style={{ padding: "5px", borderRadius: "20px"}}>
+			<HomeSider userInfo={userData} 
+			setAnalysisList={setAnalysisList}
+			setContentList={setContentList}
+			contentList={contentList} 
+			analysisList={analysisList} />
+			<Layout style={{backgroundColor: '#ffffff'}}>
 				<HomeHeader store={store} />
+				
 				<HomeContent store={store} />
 				<Footer
 					style={{
