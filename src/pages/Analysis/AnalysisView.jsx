@@ -1,6 +1,6 @@
 import React, { useEffect ,useRef } from "react";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
-import { Avatar, Layout, Menu, theme, Descriptions } from "antd";
+import { Avatar, Layout, Menu, theme, Descriptions,Button } from "antd";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
 import AnalysisModel from "./AnalysisModel";
@@ -93,7 +93,7 @@ const AnalysisView = props => {
                 },
                 data: [
                   {
-                    value: 0.7,
+                    value: 0.85,
                     name: 'score'
                   }
                 ]
@@ -119,35 +119,37 @@ const AnalysisView = props => {
 	const items = [
 		{
 			label: "标题",
-			children: "分析1",
-            span: {
-				xs: 1,
-				md: 1,
-				lg: 1,
-				xl: 2,
-				xxl: 2,
-			},
-		},
-		{
-			label: "时间",
-			children: "18:00:00",
-            span: {
-				xs: 1,
-				md: 1,
-				lg: 1,
-				xl: 2,
-				xxl: 2,
-			},
-		},
-		{
-			label: "标签",
-			children: "开心,快乐,喜悦",
+			children: "用户留言分析",
             span: {
 				xs: 1,
 				md: 1,
 				lg: 1,
 				xl: 1,
-				xxl: 2,
+				xxl: 1,
+			},
+		},
+		{
+			label: "时间",
+			children: "2024年3月31日 19:07",
+            span: {
+				xs: 1,
+				md: 1,
+				lg: 1,
+				xl: 1,
+				xxl: 1,
+			},
+		},
+		{
+			label: "标签",
+			children: (
+				<div>满意、惊喜、推荐</div>
+			),
+            span: {
+				xs: 1,
+				md: 1,
+				lg: 1,
+				xl: 1,
+				xxl: 4,
 			},
 		},
 		{
@@ -157,16 +159,12 @@ const AnalysisView = props => {
 				md: 3,
 				lg: 3,
 				xl: 3,
-				xxl: 3,
+				xxl: 6,
 			},
 			children: (
-				<>
-					Data disk type: MongoDB
-					<br />
-					Database version: 3.4
-					<br />
-					Package: dds.mongo.mid
-				</>
+				<div style={{width: "70%"}}>
+我购买了这个商品，完全超出了我的预期！首先，它的质量非常出色，每一个细节都经过精心设计和制造。其次，它的功能性非常强大，能够完美解决我的需求。无论是在家里还是在户外活动中，都能轻松携带并发挥出最佳效果。最让我感到惊喜的是，它的性价比非常高，价格实惠却不失品质。总的来说，我对这个商品非常满意，强烈推荐给所有有类似需求的朋友们！
+				</div>
 			),
 		},
 
@@ -177,18 +175,12 @@ const AnalysisView = props => {
 				md: 3,
 				lg: 3,
 				xl: 3,
-				xxl: 3,
+				xxl: 6,
 			},
 			children: (
-				<>
-					CPU: 6 Core 3.5 GHz
-					<br />
-					Storage space: 10 GB
-					<br />
-					Replication factor: 3
-					<br />
-					Region: East China 1
-				</>
+				<div style={{width: "70%",fontWeight: '700', color:"#101010"}}>
+根据文本内容，可以看出用户对购买的商品感到非常满意和惊喜，表达了强烈的推荐意愿。情感值为0.85显示了这段评价是积极的，用户对商品的满意程度很高，体验带来了愉悦和满足的情绪。
+				</div>
 			),
 		},
         {
@@ -198,7 +190,7 @@ const AnalysisView = props => {
 				md: 3,
 				lg: 3,
 				xl: 3,
-				xxl: 3,
+				xxl: 6,
 			},
 			children: (
                 <div style={{
@@ -221,14 +213,15 @@ const AnalysisView = props => {
 			<Descriptions
 				title={store.analysis}
 				bordered
-				size='middle'
+				size='small'
+				extra={<Button type="primary" >导出</Button>}
 				column={{
 					xs: 1,
-					sm: 2,
+					sm: 1,
 					md: 3,
 					lg: 3,
 					xl: 3,
-					xxl: 3,
+					xxl: 6,
 				}}
 				items={items}
 			/>
