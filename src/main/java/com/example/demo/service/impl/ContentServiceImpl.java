@@ -39,4 +39,12 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
     public List<Content> getAllContents(){
         return contentMapper.selectList(null);
     }
+
+    @Override
+    public List<Content> selectByUserId(Long id) {
+        List<Content> contentList = lambdaQuery()
+                .like(Content::getUserId,id)
+                .list();
+        return contentList;
+    }
 }

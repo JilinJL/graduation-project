@@ -15,4 +15,6 @@ public interface ContentService extends IService<Content> {
     boolean removeById(Long id);
 
     List<Content> getAllContents();
+
+    List<Content> selectByUserId(Long id);
 }
