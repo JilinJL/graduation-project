@@ -1,6 +1,12 @@
 package com.example.demo.controller;
 
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.example.demo.common.R;
+import com.example.demo.common.ResponseEnum;
+import com.example.demo.common.TokenUtil;
 import com.example.demo.entity.Student;
 import com.example.demo.entity.User;
 import com.example.demo.service.StudentService;
@@ -43,20 +49,22 @@ public class UserController {
 
 
     @ResponseBody
-    @PostMapping("/login")
     @ApiOperation("用户登陆")
-    public ResponseEntity<User> loginUser(User user) {
-        // 调用Service层完成登录逻辑
-        user = userService.loginUser(user.getUsername(), user.getPassword());
-
-        // 登录成功后返回用户信息
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    @PostMapping("/login")
+    public R<User> login(String userName, String password) {
+        System.out.println(userName+"----"+password);
+        if (StringUtils.isNotBlank(userName) && StringUtils.isNotBlank(password)) {
+            if ("张三".equals(userName) && "123456".equals(password)) {
+                User user = new User();
+                JSONObject json = JSONUtil.createObj()
+                        .put("name", "zhangsan");
+                String token = TokenUtil.createToken(json);
+                user.setToken(token);
+                return R.ok(user);
+            }
         }
+        return R.error(ResponseEnum.USERNAME_PASSWORD_ERROR);
     }
-
 
 
     @ResponseBody

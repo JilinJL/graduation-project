@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.common.Auth;
 import com.example.demo.entity.Analysis;
 import com.example.demo.entity.Student;
 import com.example.demo.service.AnalysisService;
@@ -23,15 +24,16 @@ public class AnalysisController {
     @Autowired
     private AnalysisService analysisService;
 
+    @Auth
     @ResponseBody
     @GetMapping("/getAnalysisByUserId")
     @ApiOperation("根据userId拿到分析记录")
     public List<Analysis> getAnalysis(Long id) {
-        log.info("参数:{}",id);
         List<Analysis> analysisList = analysisService.selectByUserId(id);
         return analysisList;
     }
 
+    @Auth
     @ResponseBody
     @PostMapping("/addAnalysis")
     @ApiOperation("新建分析")
