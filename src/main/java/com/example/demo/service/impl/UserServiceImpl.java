@@ -41,9 +41,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User registerUser(User user) {
 
-        user.setUsername(user.getUsername());
-        user.setPassword(user.getPassword());
-        user.setEmail(user.getEmail());
+//        user.setUsername(user.getUsername());
+//        user.setPassword(user.getPassword());
+//        user.setEmail(user.getEmail());
         userMapper.insert(user);
         System.out.println("user----------注册");
         System.out.println(user);
@@ -60,13 +60,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public boolean existsByUsername(String username) {
+    public boolean existsByUsername(String userName) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", username);
+        queryWrapper.eq("username", userName);
         // 使用count方法统计符合条件的记录数
         Long count = userMapper.selectCount(queryWrapper);
         // 如果记录数大于0，则表示用户名已存在
         return count > 0;
+    }
+
+    @Override
+    public User findUserByName(String userName) {
+        // 创建查询条件
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", userName);
+
+        // 调用 Mapper 层的查询方法
+        return userMapper.selectOne(queryWrapper);
     }
 
     @Override

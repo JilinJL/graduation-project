@@ -18,6 +18,8 @@ public interface UserService extends IService<User> {
     User loginUser(String username, String password);
 
     //检测用户名是否存在
-    boolean existsByUsername(String username);
+    boolean existsByUsername(String userName);
     List<User> getAllUsers();
+
+    User findUserByName(String userName);
 }
