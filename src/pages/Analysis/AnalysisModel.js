@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import request from '../../utils/request';
 import { makeObservable, observable, action, autorun } from "mobx";
-
+import {message} from 'antd'
 class AnalysisModel {
   analysisData = [];
 
@@ -20,7 +20,7 @@ class AnalysisModel {
       });
       // 将获取的数据赋值给观察属性 analysisList
       this.analysisData = data.data;
-      
+
     } catch(e) {
       console.log(e);
     }

@@ -66,6 +66,11 @@ const Utils = {
   const colors = ["magenta", "red", "volcano", "orange", "gold", "lime", "green", "cyan", "blue", "geekblue", "purple"];
   const randomIndex = Math.floor(Math.random() * colors.length);
   return colors[randomIndex];
+},
+
+// 使用正则表达式检查字符串是否只包含 \n
+ onlyContainsNewLines(str) {
+  return /^[\n]*$/.test(str);
 }
   };
   

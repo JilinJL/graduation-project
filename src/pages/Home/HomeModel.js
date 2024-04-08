@@ -28,6 +28,43 @@ class HomeModel {
     }
   }
 
+  async getUserInfo(userId) {
+    try {
+      // 获取用户信息
+      const {data} = await request({
+        url: `user/getUserInfo?userId=${userId}`,
+        method: 'get',
+      });
+      
+      if(data){
+        localStorage.setItem('userData',JSON.stringify({
+          userId: data.id,
+          userName: data.username,
+          userEmail: data.email,
+        }))
+      }
+      
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  async addContent(params){
+    try{
+      // 新增分析记录
+      const {data} = await request({
+        url: `content/addContent`,
+        method: 'post',
+        params,
+      });
+      
+      console.log(data,"--add")
+      
+    } catch(e) {
+      console.log(e);
+    }
+
+  }
   
 
 }

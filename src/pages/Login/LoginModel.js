@@ -25,6 +25,7 @@ class LoginModel {
       if(data.code=="200"){
         localStorage.setItem('token', data.data?.token);
         localStorage.setItem('userId', data.data?.id);
+        localStorage.setItem('userName', data.data?.username);
         return true;
       }else{
         message.error(data.message);

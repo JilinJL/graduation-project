@@ -1,41 +1,22 @@
 @import "@/index.less";
 
+.content {
+	padding: 1rem;
+	width: 100%;
+	height: 100%;
+	background: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: space-between;
+	margin-top: 1rem;
 
-.content{
-        width: 100%;
-        height: 100%;
-        background:#ffffff;
-        display: flex;
-        justify-content: center;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        margin-top: 1rem;
-
-      .info {
-        display: flex;
-        width: 100%;
-        text-align: center;
-        color: #999;
-    
-        div{
-            padding: 3rem;
-        }
-    
-        .left {
-            flex: 1;
-        }
-        .middle {
-            flex: 1;
-            border-left: 4px double #eee;
-            border-right: 4px double #eee;
-        }
-        .right {
-            flex: 1;
-        }
-    }
-
-    
+	.input {
+        margin-bottom: 2rem;
+	}
 }
 
-
-
+.content > div {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
