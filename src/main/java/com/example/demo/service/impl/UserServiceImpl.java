@@ -45,8 +45,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 //        user.setPassword(user.getPassword());
 //        user.setEmail(user.getEmail());
         userMapper.insert(user);
-        System.out.println("user----------注册");
-        System.out.println(user);
         return user;
     }
 

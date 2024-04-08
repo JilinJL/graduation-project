@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CrossInterceptorHandler()).addPathPatterns(new String[] {"/**"});
+        registry.addInterceptor(new CrossInterceptorHandler()).addPathPatterns(new String[]{"/**"});
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/login", "/error/**");
     }
 
@@ -28,10 +28,10 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // 对所有请求路径启用跨域配置
-                .allowedOrigins("*") // 允许所有域的跨域请求
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 允许的请求方法
-                .allowedHeaders("*") // 允许所有请求头
-                .maxAge(3600); // 预检请求的有效期，单位秒
+        registry.addMapping("/api/**")
+                .allowedOriginPatterns("*") // 允许的来源
+                .allowedMethods("GET", "POST", "PUT", "DELETE") // 允许的方法
+                .allowedHeaders("token") // 允许的请求头
+                .allowCredentials(true); // 允许携带凭证（如Cookie）
     }
 }

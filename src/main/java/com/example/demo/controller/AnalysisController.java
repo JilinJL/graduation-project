@@ -2,13 +2,15 @@ package com.example.demo.controller;
 
 
 import com.example.demo.common.Auth;
+import com.example.demo.common.R;
+import com.example.demo.common.ResponseEnum;
 import com.example.demo.entity.Analysis;
+import com.example.demo.entity.DetailVO;
 import com.example.demo.entity.Student;
 import com.example.demo.service.AnalysisService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +28,15 @@ public class AnalysisController {
 
     @Auth
     @ResponseBody
-    @GetMapping("/getAnalysisByUserId")
-    @ApiOperation("根据userId拿到分析记录")
-    public List<Analysis> getAnalysis(Long id) {
-        List<Analysis> analysisList = analysisService.selectByUserId(id);
-        return analysisList;
+    @GetMapping("/getAnalysisById")
+    @ApiOperation("根据id拿到分析详情")
+    public R<DetailVO> getAnalysis(Long id) throws Exception {
+
+        DetailVO a = analysisService.getAnalysisById(id);
+        if(a != null){
+            return R.ok(a);
+        }
+        return R.error(ResponseEnum.FAIL);
     }
 
     @Auth

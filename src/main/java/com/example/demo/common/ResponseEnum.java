@@ -17,12 +17,15 @@ public enum ResponseEnum {
 
     USERNAME_PASSWORD_ERROR(303,"用户名或密码错误"),
 
+    USER_HAS(306,"用户名已存在"),
+
     NO_TOKEN(405,"无token，请重新登录"),
 
     TOKEN_VERIFY_ERROR(401,"token验证失败，请重新登录"),
 
-    TOKEN_EX(402,"token已过期");
+    TOKEN_EX(402,"token已过期，请重新登录"),
 
+    INSERT_ERROR(504,"新增失败");
 
     private final Integer code;
 
