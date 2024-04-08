@@ -2,34 +2,29 @@ import { createContext, useContext } from 'react';
 import request from '../../utils/request';
 import { makeObservable, observable, action, autorun } from "mobx";
 
-class HomeModel {
-  contentList = [];
+class ContentModel {
+  analysisData = [];
 
   constructor() {
     makeObservable(this, {
-      contentList: observable,
-      getContent: action,
+      analysisData: observable,
+      getAnalysis: action,
     });
   }
 
-  async getContent(id) {
+  async getAnalysis(id) {
     try {
-      // 获取用户的分析记录
       const {data} = await request({
-        url: `content/getContentByUserId?userId=${id}`,
+        url: `analysis/getAnalysisById?id=${id}`,
         method: 'get',
       });
-      
-      this.contentList = data;
-     return data;
+      // 将获取的数据赋值给观察属性 analysisList
+      this.analysisData = data.data;
       
     } catch(e) {
       console.log(e);
     }
   }
-
-  
-
 }
 
-export default HomeModel;
+export default ContentModel;

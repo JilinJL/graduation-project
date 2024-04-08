@@ -3,27 +3,23 @@ import request from '../../utils/request';
 import { makeObservable, observable, action, autorun } from "mobx";
 
 class AnalysisModel {
-  analysisList = [];
+  analysisData = [];
 
   constructor() {
     makeObservable(this, {
-      analysisList: observable,
+      analysisData: observable,
       getAnalysis: action,
     });
   }
 
-  async getAnalysis() {
+  async getAnalysis(id) {
     try {
-      const analysisList = await request({
-        url: 'analysis/getAnalysis',
+      const {data} = await request({
+        url: `analysis/getAnalysisById?id=${id}`,
         method: 'get',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
       });
       // 将获取的数据赋值给观察属性 analysisList
-      this.analysisList = analysisList;
+      this.analysisData = data.data;
       
     } catch(e) {
       console.log(e);

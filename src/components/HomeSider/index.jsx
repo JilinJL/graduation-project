@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./index.less";
 import { useNavigate, Link } from "react-router-dom";
 import Utils from "../../utils/Utils";
-import { Layout, Menu, theme, Input, Button, Popover, List, Modal } from "antd";
+import { Layout, Menu, theme, Input, Button, Popover, List, Modal, Select } from "antd";
 import { FormOutlined,UploadOutlined, UserOutlined, LoginOutlined, GithubOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 const { Header, Content, Footer, Sider } = Layout;
 import { Collapse,Popconfirm  } from "antd";
@@ -19,9 +19,14 @@ const HomeSider = props => {
 
   const navigate = useNavigate();
 
+  // 气泡弹窗
   const showPopconfirm = () => {
     setOpenNew(true);
   };
+
+  const handleChange = (value) => {
+		console.log(`selected ${value}`);
+	  };
 
   const handleOk = () => {
     setConfirmLoading(true);
@@ -36,9 +41,10 @@ const HomeSider = props => {
     setOpenNew(false);
   };
 
-  const handleSearch = value => {
-    const results = props.contentList.filter(item => item.title.toLowerCase().includes(value.toLowerCase()));
-    setSearchTerm(value);
+  const handleSearch = e => {
+    const results = props.contentList.filter(item => item.contentTitle.includes(e.target.value));
+    console.log(results)
+    setSearchTerm(e.target.value);
     setSearchResults(results);
   };
 
@@ -74,7 +80,7 @@ const HomeSider = props => {
   };
 
   const handleLogout = () => {
-    localStorage.clear("token");
+    localStorage.clear();
     navigate("/login", { replace: true });
   };
 
@@ -84,7 +90,20 @@ const HomeSider = props => {
         <Input placeholder='搜索分析记录' allowClear onChange={handleSearch} style={{ width: 300 }} />
         <Popconfirm
           title='标题'
-          description={() => <div><input/></div>}
+          description={() => <div>
+            <Input/>
+            <br/>
+            选择模型：
+          <Select
+          defaultValue="Sentiment"
+          
+          onChange={handleChange}
+          options={[
+            { value: 'Sentiment', label: '情感分析' },
+            { value: 'Recommend', label: 'AI推荐' },
+          ]}
+          />
+          </div>}
           open={openNew}
           onConfirm={handleOk}
           okButtonProps={{
@@ -96,17 +115,21 @@ const HomeSider = props => {
           <Button className='manage_header_button' onClick={showPopconfirm}>
             新建分析
           </Button>
+
         </Popconfirm>
       </div>
       <div className='list'>
-        <Collapse items={items} defaultActiveKey={["1"]} />
-        <Collapse>
-          {searchResults.map(item => (
-            <Panel header={item.title} key={item.id}>
-              <p>{item.content_data}</p>
-            </Panel>
-          ))}
-        </Collapse>
+        {!searchTerm && <Collapse items={items} defaultActiveKey={["1"]} />}
+        {searchTerm && <Collapse 
+          showArrow={false}
+          ghost
+          collapsible={false}
+          items={[{
+          key: "1",
+          label: "搜索结果",
+          showArrow: false,
+          children: searchResults.map(data => AnalysisTags(data)),
+        }]} defaultActiveKey={["1"]} />}
       </div>
       <div className='manage_footer'>
         <Popover

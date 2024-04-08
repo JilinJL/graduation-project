@@ -1,20 +1,34 @@
-import React, { useEffect ,useRef } from "react";
+import React, { useEffect ,useRef, useState } from "react";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
-import { Avatar, Layout, Menu, theme, Descriptions,Button } from "antd";
+import { Avatar, Layout, Menu, theme, Descriptions,Button,Tag } from "antd";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
-import AnalysisModel from "./AnalysisModel";
+import AnalysisModel from "./AnalysisModel.js";
 import { useParams } from "react-router-dom";
 import * as echarts from 'echarts';
-
+import Utils from "@/utils/Utils";
 
 const store = new AnalysisModel();
 const AnalysisView = props => {
 
     const chartRef = useRef(null);
+	const [analysisData,setAnalyisisData] = useState({})
+	const { analysisId:id } = useParams(); // 获取路由参数中的ID
 
+	// 统一初始化
+	const fetchData = async () => {
+		await store.getAnalysis(id || null);
+	};
+	
     useEffect(() => {
         const myChart = echarts.init(chartRef.current);
+
+		    // 确保容器元素尺寸不为零
+			const width = chartRef.current.offsetWidth;
+			const height = chartRef.current.offsetHeight;
+			console.log(width, height);
+
+			
         let option = {
             series: [
               {
@@ -104,22 +118,26 @@ const AnalysisView = props => {
     }, []);
 
 
-	const handleLogin = data => {
-		console.log(data);
-	};
 
-	const handleRegister = data => {
-		console.log(data);
-	};
+	// 存储analysis详情
+	useEffect(() => {
+		setAnalyisisData(toJS(store.analysisData));
+	}, [store.analysisData]);
+	
+	// 切换页面
+	useEffect(()=>{
+		fetchData()
 
-	const handleCheckName = data => {
-		console.log(`用户名${data}重复`);
-	};
-
+	},[id])
+	
 	const items = [
 		{
 			label: "标题",
-			children: "用户留言分析",
+			children: (
+				<div style={{color: "#125124",fontSize: "1.2rem"}}>
+					{analysisData?.contentTitle}
+				</div>
+			),
             span: {
 				xs: 1,
 				md: 1,
@@ -130,7 +148,11 @@ const AnalysisView = props => {
 		},
 		{
 			label: "时间",
-			children: "2024年3月31日 19:07",
+			children: (
+				<div>
+					{analysisData?.contentTime}
+				</div>
+			),
             span: {
 				xs: 1,
 				md: 1,
@@ -142,7 +164,15 @@ const AnalysisView = props => {
 		{
 			label: "标签",
 			children: (
-				<div>满意、惊喜、推荐</div>
+				<div>
+					{analysisData?.analysisLabel?.split(',').map((label, index) => 
+						(
+						<Tag key={index} color={Utils.getRandomColor()}>
+							{label}
+						  </Tag>
+						))
+					  }
+				</div>
 			),
             span: {
 				xs: 1,
@@ -162,8 +192,8 @@ const AnalysisView = props => {
 				xxl: 6,
 			},
 			children: (
-				<div style={{width: "70%"}}>
-我购买了这个商品，完全超出了我的预期！首先，它的质量非常出色，每一个细节都经过精心设计和制造。其次，它的功能性非常强大，能够完美解决我的需求。无论是在家里还是在户外活动中，都能轻松携带并发挥出最佳效果。最让我感到惊喜的是，它的性价比非常高，价格实惠却不失品质。总的来说，我对这个商品非常满意，强烈推荐给所有有类似需求的朋友们！
+				<div style={{width: window.innerWidth<=800?"70%":"100%"}}>
+					{analysisData?.contentData}
 				</div>
 			),
 		},
@@ -178,8 +208,8 @@ const AnalysisView = props => {
 				xxl: 6,
 			},
 			children: (
-				<div style={{width: "70%",fontWeight: '700', color:"#101010"}}>
-根据文本内容，可以看出用户对购买的商品感到非常满意和惊喜，表达了强烈的推荐意愿。情感值为0.85显示了这段评价是积极的，用户对商品的满意程度很高，体验带来了愉悦和满足的情绪。
+				<div style={{width: window.innerWidth<=800?"70%":"100%",fontWeight: '700', color:"#101010"}}>
+				{analysisData?.analysisResult}
 				</div>
 			),
 		},
@@ -202,7 +232,6 @@ const AnalysisView = props => {
 		},
 	];
 
-	console.log(useParams());
 
 	return (
 		<div

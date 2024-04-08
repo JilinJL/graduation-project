@@ -12,23 +12,22 @@ import HomeModel from "./HomeModel";
 const store = new HomeModel();
 const { Header, Content, Footer, Sider } = Layout;
 
-import mockData from "../../assets/mock"
-
 
 const HomeView = () => {
 
 	const [contentList,setContentList] = useState([]);
-	const [analysisList,setAnalysisList] = useState([]);
 
+	// 统一初始化
 	const fetchData = async () => {
-		await store.getAnalysis();
+		await store.getContent(localStorage.getItem('userId') || null);
 	};
 
 	useEffect(() => {
-		// fetchData();
-		setContentList(mockData.contentList);
-		setAnalysisList(mockData.analysisList);
+		fetchData();
 	}, []);
+	useEffect(() =>{
+		setContentList(toJS(store.contentList));
+	}, [store.contentList])
 
 	const userData = {
 		userName: "小明",
@@ -36,10 +35,8 @@ const HomeView = () => {
 	return (
 		<Layout style={{ padding: "5px", borderRadius: "20px"}}>
 			<HomeSider userInfo={userData} 
-			setAnalysisList={setAnalysisList}
 			setContentList={setContentList}
-			contentList={contentList} 
-			analysisList={analysisList} />
+			contentList={contentList}  />
 			<Layout style={{backgroundColor: '#ffffff'}}>
 				<HomeHeader store={store} />
 				
@@ -48,7 +45,9 @@ const HomeView = () => {
 					style={{
 						textAlign: "center",
 					}}
-				></Footer>
+				>
+				
+				</Footer>
 			</Layout>
 		</Layout>
 	);

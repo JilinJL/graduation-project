@@ -1,5 +1,6 @@
 // 工具类 Util.js
 const Utils = {
+  // 节流
   throttle(func, delay) {
     let lastExecTime = 0;
     let timer;
@@ -21,6 +22,8 @@ const Utils = {
       }
     };
   },
+
+  // 按时间分组数组
   splitArrayByTime(array) {
     const now = new Date(); // 获取当前时间
   
@@ -40,7 +43,7 @@ const Utils = {
     const otherArray = [];
   
     array.forEach(item => {
-      const itemTime = new Date(item.content_time);
+      const itemTime = new Date(item.contentTime);
   
       if (itemTime >= todayStart && itemTime <= todayEnd) {
         todayArray.push(item);
@@ -56,8 +59,14 @@ const Utils = {
       lastSevenDays: lastSevenDaysArray,
       other: otherArray
     };
-  }
+  },
   
+  // 生成随机颜色
+  getRandomColor () {
+  const colors = ["magenta", "red", "volcano", "orange", "gold", "lime", "green", "cyan", "blue", "geekblue", "purple"];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+}
   };
   
   export default Utils;

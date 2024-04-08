@@ -22,8 +22,8 @@ const AnalysisTags = props => {
 
 	return (
 		<div id='sider-item' key={props.id}>
-			<div className='link' title={props.title}>
-				<NavLink activeClassName="active" to={`/analysis/${props.id}`}>{props.title}</NavLink >
+			<div className='link' title={props.contentTitle}>
+				<Link unstable_viewTransition to={`/analysis/${props.id}`}>{props.contentTitle}</Link >
 			</div>
 			<div className='delete'>
 				<Popconfirm title='删除记录' description='确认要删除本条记录吗?' onConfirm={confirm} onCancel={cancel} okText='Yes' cancelText='No'>

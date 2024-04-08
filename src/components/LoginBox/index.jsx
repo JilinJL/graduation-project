@@ -30,8 +30,7 @@ const LoginBox = props => {
 
             // 创建新的定时器，在1秒后执行逻辑
             const newTimer = setTimeout(() => {
-              console.log(`check重复名字--${e.target.value}`);
-              // 在这里执行您的逻辑
+				props.handleCheckName(e.target.value);
             }, 1000);
             
         }

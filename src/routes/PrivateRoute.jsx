@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { message } from 'antd';
 
 const PrivateRoute = ({ element: Element, ...rest }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
 
   const isAuthenticated = () => {
@@ -15,7 +16,7 @@ const PrivateRoute = ({ element: Element, ...rest }) => {
 
   
   useEffect(() => {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated()&&location.pathname!=="/login") {
       // 如果用户未登录，则重定向到登录页面
       message.info('请先登录');
       navigate("/login", { replace: true });

@@ -11,7 +11,7 @@ import Home from "@/pages/Home/HomeView"
 import Login from "@/pages/Login/LoginView"
 import ErrorPage from "@/error-page.jsx"
 import AnalysisView from "../pages/Analysis/AnalysisView";
-
+import ContentView  from "../pages/Content/ContentView";
 import PrivateRoute from "./PrivateRoute";
 
 
@@ -28,6 +28,10 @@ const router = createBrowserRouter([
           {
             path: "analysis/:analysisId",
             element: <PrivateRoute element={AnalysisView} />,
+          },
+          {
+            path: "newContent",
+            element: <PrivateRoute element={ContentView} />,
           },
         ],
       },
