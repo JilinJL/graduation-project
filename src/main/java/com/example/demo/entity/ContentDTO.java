@@ -10,4 +10,5 @@ public class ContentDTO {
     private String contentTime;
     private String contentTitle;
     private String contentData;
+    private String type;
 }

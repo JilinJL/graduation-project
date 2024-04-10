@@ -11,7 +11,7 @@ public class TokenUtil {
 
     private final static String ENCRYPT_KEY = "abc123"; // 加密的密钥
 
-    private final static int EXPIRE_TIME = 600; // token 过期时间，单位分钟
+    private final static int EXPIRE_TIME = 24*60; // token 过期时间，单位分钟
 
     private static final String ISSUER = "linhanping";
 

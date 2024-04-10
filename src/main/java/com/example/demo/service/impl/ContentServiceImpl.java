@@ -31,8 +31,8 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
     }
 
     @Override
-    public boolean removeById(Long id) {
-        return contentMapper.deleteById(id) > 0;
+    public boolean removeById(Long contentId, Long userId) {
+        return contentMapper.removeById(contentId,userId);
     }
 
     @Override

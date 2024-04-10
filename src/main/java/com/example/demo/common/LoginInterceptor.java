@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 String token = request.getHeader("token");
                 if (StringUtils.isNotBlank(token)) {
                     if (TokenUtil.verifyToken(token)) { // 校验 token 是否正确
-                        System.out.println("校验token");
+//                        System.out.println("校验token");
                         return true;
                     } else {
                         sendError(response, 405, "token校验失败,请重新登录");

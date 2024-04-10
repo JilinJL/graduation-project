@@ -47,10 +47,4 @@ public class AnalysisController {
         return analysisService.save(analysis);
     }
 
-    @ResponseBody
-    @GetMapping("/Index")
-    public Student Index(){
-        return new Student(1,"小明","男");
-    }
-
 }
