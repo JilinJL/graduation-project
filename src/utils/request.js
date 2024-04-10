@@ -4,7 +4,6 @@ import { message } from "antd";
 const request = axios.create({
 	baseURL: "http://localhost:8099/api", //本地测试
 	//   baseURL: 'http://api.example.com',    //外网
-	timeout: 5000,
 });
 
 // 标记token是否已经过期

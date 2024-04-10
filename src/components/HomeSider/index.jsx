@@ -45,9 +45,9 @@ const HomeSider = props => {
 		setOpenNew(false);
 	};
 
+
 	const handleSearch = e => {
 		const results = props.contentList.filter(item => item.contentTitle.includes(e.target.value));
-		console.log(results);
 		setSearchTerm(e.target.value);
 		setSearchResults(results);
 	};
@@ -57,17 +57,17 @@ const HomeSider = props => {
 		{
 			key: "1",
 			label: "今天",
-			children: sortList.today.map(data => AnalysisTags(data)),
+			children: sortList.today.map(data => <AnalysisTags key={data.id} data={data} />),
 		},
 		{
 			key: "2",
 			label: "一周内",
-			children: sortList.lastSevenDays.map(data => AnalysisTags(data)),
+			children: sortList.lastSevenDays.map(data => <AnalysisTags key={data.id} data={data} />),
 		},
 		{
 			key: "3",
 			label: "更久",
-			children: sortList.other.map(data => AnalysisTags(data)),
+			children: sortList.other.map(data => <AnalysisTags key={data.id} data={data} />),
 		},
 	];
 
@@ -132,7 +132,7 @@ const HomeSider = props => {
 								key: "1",
 								label: "搜索结果",
 								showArrow: false,
-								children: searchResults.map(data => AnalysisTags(data)),
+								children: searchResults.map(data => <AnalysisTags key={data.id} data={data} />),
 							},
 						]}
 						defaultActiveKey={["1"]}
@@ -166,7 +166,7 @@ const HomeSider = props => {
 						className='user_icon'
 						style={{ color: Utils.getRandomColor(),display: "inline-block", padding: "0.2rem", fontSize: "2rem", borderRadius: "50%", border: "1px solid #ccc" }}
 					/>
-					<div className='username'>{localStorage.getItem('userName') || 新用户}</div>
+					<div className='username'>{localStorage.getItem('userName') || '新用户'}</div>
 				</Popover>
 			</div>
 			<Modal title='关于项目' open={isModalOpen} onCancel={() => setIsModalOpen(false)} footer={null}>

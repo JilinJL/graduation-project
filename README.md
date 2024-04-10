@@ -4,6 +4,8 @@
 
 该项目是我的毕业设计项目(前端部分)，使用 React 技术栈进行开发。该项目旨在实现一个NLP情感分析系统。
 
+2024/4/10:更新多个模块,集成多种使用场景
+
 ## 前端技术栈
 
 - React：用于构建用户界面的 JavaScript 库。
@@ -43,7 +45,6 @@ git clone https://github.com/your-username/your-project.git
 1. 安装依赖：
 
 ```
-bashCopy codecd your-project
 npm install
 ```
 

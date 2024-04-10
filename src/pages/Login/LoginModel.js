@@ -33,7 +33,7 @@ class LoginModel {
       return false;
 
     }catch (e) {
-      console.log(e);
+      message.error(e.message);
       message.error(e.message);
     }
   }
@@ -54,7 +54,7 @@ class LoginModel {
       }
       return false
     } catch(e) {
-      console.log(e);
+      message.error(e.message);
       message.error(e.message);
     }
 

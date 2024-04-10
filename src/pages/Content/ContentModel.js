@@ -22,7 +22,7 @@ class ContentModel {
       this.analysisData = data.data;
       
     } catch(e) {
-      console.log(e);
+      message.error(e.message);
     }
   }
 }

@@ -157,7 +157,7 @@ const AnalysisView = props => {
 			children: (
 				<div>
 					{analysisData?.analysisLabel?.split(",").map((label, index) => (
-						<Tag key={index} color={Utils.getRandomColor()}>
+						<Tag style={{fontSize: '0.8rem'}} key={index} color={Utils.getRandomColor(analysisData?.analysisScore)}>
 							{label}
 						</Tag>
 					))}

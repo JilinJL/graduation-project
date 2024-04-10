@@ -1,14 +1,16 @@
 import { createContext, useContext } from 'react';
 import request from '../../utils/request';
 import { makeObservable, observable, action, autorun } from "mobx";
-
+import {message} from 'antd'
 class HomeModel {
   contentList = [];
-
+  loading = false;
   constructor() {
     makeObservable(this, {
       contentList: observable,
       getContent: action,
+      loading: observable,
+      touchLoading: action,
     });
   }
 
@@ -24,7 +26,7 @@ class HomeModel {
      return data;
       
     } catch(e) {
-      console.log(e);
+      message.error(e.message);
     }
   }
 
@@ -45,7 +47,7 @@ class HomeModel {
       }
       
     } catch(e) {
-      console.log(e);
+      message.error(e.message);
     }
   }
 
@@ -58,12 +60,20 @@ class HomeModel {
         params,
       });
       
-      console.log(data,"--add")
-      
+      if(data.code == "504"){
+        message.error("抱歉,生成失败!")
+      }else if(data.code == "200"){
+        this.touchLoading();
+      }
     } catch(e) {
-      console.log(e);
+      message.error(e.message);
     }
 
+  }
+
+  touchLoading(){
+    console.log(this.loading)
+    this.loading =!this.loading;
   }
   
 

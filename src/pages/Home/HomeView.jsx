@@ -1,6 +1,6 @@
 import React, { useEffect,useState,useRef } from "react";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
-import { Avatar, Layout, Menu, theme, Tour } from "antd";
+import { Avatar, Layout, Menu, theme,Spin, Tour } from "antd";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
 import request from "../../utils/request";
@@ -23,12 +23,6 @@ const HomeView = () => {
 	  {
 		title: '第一步',
 		description: '新建一条记录',
-		cover: (
-		  <img
-			alt="第一步.png"
-			src="https://gitee.com/jilinJL/my-pictures/raw/master/img/first.png"
-		  />
-		),
 		target: () => ref1.current,
 	  },
 	  {
@@ -44,20 +38,19 @@ const HomeView = () => {
 	];
 
 	const [search,setsearch] = useSearchParams()
-	useEffect(() => {
-		console.log(search.get('title'))
-    },[search.get('title')])
+
+
 
 	// 处理提交分析请求
 	const handleSubmit=async data=>{
 		let params = {
 			contentData: data?.textData,
 			contentTime: new Date(),
-			contentTitle: data?.title,
+			contentTitle: data?.title || `新建分析+${new Date().toLocaleString()}`,
 			type: data?.type,
 			userId: localStorage.getItem("userId")
 		}
-
+		store.touchLoading()
 		await store.addContent(params)
 	}
 
@@ -81,15 +74,17 @@ const HomeView = () => {
 	};
 	return (
 		<Layout style={{ padding: "5px", borderRadius: "20px"}}>
-			<HomeSider userInfo={userData} 
+			<HomeSider 
+			
+			userInfo={userData} 
 			setContentList={setContentList}
 			contentList={contentList}
 			ref1={ref1}
 			/>
 			<Layout style={{backgroundColor: '#ffffff'}}>
-				<HomeHeader store={store} setOpen={setOpen}/>
+				<HomeHeader  store={store} setOpen={setOpen}/>
 				
-				<HomeContent ref2={ref2} newData={{title: search.get('title'),type: search.get('type')}} handleSubmit={handleSubmit} store={store} />
+				<HomeContent loading={store.loading} ref2={ref2} newData={{title: search.get('title'),type: search.get('type')}} handleSubmit={handleSubmit} store={store} />
 {/* 				<Footer
 					style={{
 						textAlign: "center",
