@@ -24,7 +24,7 @@ const Utils = {
   },
 
   // 按时间分组数组
-  splitArrayByTime(array) {
+  splitArrayByTime(array=[]) {
     const now = new Date(); // 获取当前时间
   
     // 计算今天的时间范围
@@ -76,6 +76,45 @@ const Utils = {
  onlyContainsNewLines(str) {
   return /^[\n]*$/.test(str);
 },
+
+
+// 分析结果内容
+  formatResult(str){
+
+    if(str.includes("Recommend")){
+      return {
+        analysisLabel: null,
+        analysisScore: null,
+        analysisResult: str.replace(/\\n/g, '\n'),
+      }
+    }
+    if(str.includes("Transform")){
+      return {
+        analysisLabel: null,
+        analysisScore: null,
+        analysisResult: str.replace(/\\n/g, '\n'),
+      }
+    }
+    
+
+    // 去除字符串中的转义字符和多余空格
+    str = str.replace(/\\/g, '').replace(/\n/g, '').trim();
+
+    // 使用正则表达式匹配并提取所需的字段
+    const labelMatch = str.match(/analysisLabel\s+(\S+)/);
+    const scoreMatch = str.match(/analysisScore\s+([\d.]+)/);
+    const resultMatch = str.match(/analysisResult\s+(.+)/);
+
+    // 构建对象
+    const analysisObj = {
+        analysisLabel: labelMatch ? labelMatch[1] : '',
+        analysisScore: scoreMatch ? parseFloat(scoreMatch[1]) : 0,
+        analysisResult: resultMatch ? resultMatch[1] : ''
+    };
+
+    return analysisObj;
+  }
+
 
   };
   

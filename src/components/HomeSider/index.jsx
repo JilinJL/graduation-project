@@ -52,7 +52,7 @@ const HomeSider = props => {
 		setSearchResults(results);
 	};
 
-	const sortList = Utils.splitArrayByTime(props.contentList);
+	const sortList = Utils.splitArrayByTime(props?.contentList || []);
 	const items = [
 		{
 			key: "1",

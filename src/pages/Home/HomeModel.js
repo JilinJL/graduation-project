@@ -2,16 +2,43 @@ import { createContext, useContext } from 'react';
 import request from '../../utils/request';
 import { makeObservable, observable, action, autorun } from "mobx";
 import {message} from 'antd'
+import Utils from '../../utils/Utils';
+
+
+
 class HomeModel {
   contentList = [];
   loading = false;
+  newContent = null;
+  analysisObj={};
   constructor() {
     makeObservable(this, {
       contentList: observable,
-      getContent: action,
       loading: observable,
+      newContent: observable,
+      analysisObj: observable,
+      getContent: action,
       touchLoading: action,
+      stopLoading: action,
+      addAnalysis: action,
     });
+  }
+
+  async addAnalysis(params) {
+    try {
+      // 获取用户的分析记录
+      const {data} = await request({
+        url: `analysis/addAnalysis`,
+        method: 'post',
+        params
+      });
+      
+      console.log(data,"paramssssssss")
+     return data;
+      
+    } catch(e) {
+      message.error(e.message);
+    }
   }
 
   async getContent(id) {
@@ -60,22 +87,30 @@ class HomeModel {
         params,
       });
       
-      if(data.code == "504"){
+      
+      if(data.code == 504){
         message.error("抱歉,生成失败!")
+        this.stopLoading();
       }else if(data.code == "200"){
-        this.touchLoading();
+        this.stopLoading();
+        const a = await this.getContent(localStorage.getItem('userId'));
+        this.newContent = a[a.length - 1];
+        this.analysisObj = Utils.formatResult(data.data)
       }
     } catch(e) {
-      message.error(e.message);
+        this.stopLoading();
+        message.error(e.message);
     }
 
   }
 
   touchLoading(){
-    console.log(this.loading)
     this.loading =!this.loading;
   }
   
+  stopLoading(){
+    this.loading = false;
+  }
 
 }
 

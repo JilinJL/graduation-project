@@ -3,7 +3,7 @@ import { message } from "antd";
 
 const request = axios.create({
 	baseURL: "http://localhost:8099/api", //本地测试
-	//   baseURL: 'http://api.example.com',    //外网
+	//   baseURL: 'gplhp.back1.hpnu.cn',    //外网
 });
 
 // 标记token是否已经过期

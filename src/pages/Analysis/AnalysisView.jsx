@@ -129,7 +129,7 @@ const AnalysisView = props => {
 	}, [store.analysisData]);
 
 
-	const items = [
+	const items = analysisData?.analysisLabel?[
 		{
 			label: "标题",
 			children: <div style={{ color: "#125124", fontSize: "1.2rem" }}>{analysisData?.contentTitle}</div>,
@@ -191,7 +191,6 @@ const AnalysisView = props => {
 				</div>
 			),
 		},
-
 		{
 			label: "分析结果",
 			span: {
@@ -223,7 +222,98 @@ const AnalysisView = props => {
 				></div>
 			),
 		},
-	];
+	]:[{
+		label: "标题",
+		children: <div style={{ color: "#125124", fontSize: "1.2rem" }}>{analysisData?.contentTitle}</div>,
+		span: {
+			xs: 1,
+			md: 1,
+			lg: 1,
+			xl: 1,
+			xxl: 1,
+		},
+	},
+	{
+		label: "时间",
+		children: <div>{analysisData?.contentTime}</div>,
+		span: {
+			xs: 1,
+			md: 1,
+			lg: 1,
+			xl: 1,
+			xxl: 1,
+		},
+	},
+	{
+		label: "标签",
+		children: (
+			<div>
+				{analysisData?.analysisLabel?.split(",").map((label, index) => (
+					<Tag style={{fontSize: '0.8rem'}} key={index} color={Utils.getRandomColor(analysisData?.analysisScore)}>
+						{label}
+					</Tag>
+				))}
+			</div>
+		),
+		span: {
+			xs: 1,
+			md: 1,
+			lg: 1,
+			xl: 1,
+			xxl: 4,
+		},
+	},
+	{
+		label: "内容",
+		span: {
+			xs: 3,
+			md: 3,
+			lg: 3,
+			xl: 3,
+			xxl: 6,
+		},
+		children: (
+			<div
+				style={{
+					width: window.innerWidth <= 800 ? "70%" : "100%",
+					fontSize: window.innerWidth <= 800 ? "70%" : "100%",
+				}}
+			>
+				{analysisData?.contentData}
+			</div>
+		),
+	},
+	{
+		label: "分析结果",
+		span: {
+			xs: 3,
+			md: 3,
+			lg: 3,
+			xl: 3,
+			xxl: 6,
+		},
+		children: <div style={{ width: window.innerWidth <= 800 ? "70%" : "100%", fontWeight: "700", color: "#101010" }}>{analysisData?.analysisResult}</div>,
+	},
+	{
+		label: "可视化分析",
+		span: {
+			xs: 3,
+			md: 3,
+			lg: 3,
+			xl: 3,
+			xxl: 6,
+		},
+		children: (
+			<div
+				style={{
+					width: "400px",
+					height: "200px",
+				}}
+				ref={chartRef}
+				id='chart-dom'
+			></div>
+		),
+	},];
 
 	return (
 		<div

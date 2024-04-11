@@ -15,6 +15,7 @@ const { TextArea } = Input;
 const HomeContent = observer(props => {
 	const location = useLocation();
 	const [type, setType] = useState(config.options[0].value);
+	const [model, setModel] = useState('1');
 	const [title, setTitle] = useState("");
 	const [textData, setTextData] = useState("");
 
@@ -26,9 +27,8 @@ const HomeContent = observer(props => {
 	}, [props.newData]);
 
 	const handleSubmit = () => {
-
 		// 执行提交操作
-		props.handleSubmit({ type, title, textData });
+		props.handleSubmit({ model, type, title, textData });
 	};
 
 	return (
@@ -38,11 +38,13 @@ const HomeContent = observer(props => {
 			{location.pathname === "/" && (
 				<div>
 					<div>
-						<HomeText type={type} />
+						<HomeText model={model} type={type} />
 					</div>
 
 					<div className='input' ref={props.ref2}>
-						<Spin tip="分析生成中..." spinning={props.loading}
+						<Spin
+							tip='分析生成中...'
+							spinning={props.loading}
 							indicator={
 								<LoadingOutlined
 									style={{
@@ -53,6 +55,7 @@ const HomeContent = observer(props => {
 							}
 						>
 							<Form name='newContent'>
+								<Select onChange={setModel} value={model} defaultValue={config.options[0].value} options={config.models} />
 								<Select onChange={setType} value={type} defaultValue={config.options[0].value} options={config.options} />
 								<Input
 									value={title}
@@ -66,7 +69,14 @@ const HomeContent = observer(props => {
 								<div style={{ position: "relative" }}>
 									<TextArea
 										placeholder='在这里输入待分析文本'
-										onPressEnter={Utils.onlyContainsNewLines(textData) ? "" : handleSubmit}
+										onKeyPress={event => {
+											if (event.key === "Enter") {
+												event.preventDefault(); // 阻止默认行为（插入换行符）
+												if (textData.trim() !== "") {
+													handleSubmit();
+												}
+											}
+										}}
 										onChange={e => setTextData(e.target.value)}
 										value={textData}
 										style={{ margin: "0.1rem 0", paddingRight: "2rem", boxSizing: "border-box" }}
