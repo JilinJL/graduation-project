@@ -79,7 +79,7 @@ const Utils = {
 
 
 // 分析结果内容
-  formatResult(str){
+  formatResult(analysisString){
 
     if(str.includes("Recommend")){
       return {
@@ -97,22 +97,23 @@ const Utils = {
     }
     
 
-    // 去除字符串中的转义字符和多余空格
-    str = str.replace(/\\/g, '').replace(/\n/g, '').trim();
+    // 去除字符串中的转义符号
+    analysisString = analysisString.replace(/\\/g, '');
 
-    // 使用正则表达式匹配并提取所需的字段
-    const labelMatch = str.match(/analysisLabel\s+(\S+)/);
-    const scoreMatch = str.match(/analysisScore\s+([\d.]+)/);
-    const resultMatch = str.match(/analysisResult\s+(.+)/);
+    // 根据分隔符划分成数组
+    const parts = analysisString.split('\\n\\');
 
-    // 构建对象
-    const analysisObj = {
-        analysisLabel: labelMatch ? labelMatch[1] : '',
-        analysisScore: scoreMatch ? parseFloat(scoreMatch[1]) : 0,
-        analysisResult: resultMatch ? resultMatch[1] : ''
-    };
+    // 去除数组中的空项
+    const cleanedParts = parts.filter(part => part.trim() !== '');
 
-    return analysisObj;
+    // 创建对象并提取属性值
+    const result = {};
+    cleanedParts.forEach(part => {
+        const [key, value] = part.split('\\ ');
+        result[key] = value.trim();
+    });
+
+    return result;
   }
 
 

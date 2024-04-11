@@ -11,7 +11,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const HomeHeader = props => {
 	const navigate = useNavigate();
 
-	const title = "NLP情感分析系统";
+	const title = "NLP内容生成系统";
 
 	return (
 		<div id='home-header' style={{ backgroundColor: "#ffffff", borderBottom: "1px solid rgba(0, 0, 0, 0.1)" }}>

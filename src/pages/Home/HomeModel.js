@@ -33,7 +33,6 @@ class HomeModel {
         params
       });
       
-      console.log(data,"paramssssssss")
      return data;
       
     } catch(e) {
