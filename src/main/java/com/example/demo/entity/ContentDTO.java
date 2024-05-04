@@ -11,4 +11,5 @@ public class ContentDTO {
     private String contentTitle;
     private String contentData;
     private String type;
+    private String model;
 }

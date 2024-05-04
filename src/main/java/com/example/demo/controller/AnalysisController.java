@@ -39,7 +39,7 @@ public class AnalysisController {
         return R.error(ResponseEnum.FAIL);
     }
 
-    @Auth
+
     @ResponseBody
     @PostMapping("/addAnalysis")
     @ApiOperation("新建分析")

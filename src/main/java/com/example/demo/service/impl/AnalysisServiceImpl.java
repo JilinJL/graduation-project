@@ -9,6 +9,7 @@ import com.example.demo.mapper.ContentMapper;
 import com.example.demo.service.AnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
@@ -35,7 +36,6 @@ public class AnalysisServiceImpl extends ServiceImpl<AnalysisMapper, Analysis> i
     public boolean save(Analysis analysis) {
         return analysisMapper.insert(analysis) > 0;
     }
-
     @Override
     public boolean updateById(Analysis analysis) {
         return analysisMapper.updateById(analysis) > 0;
@@ -58,7 +58,7 @@ public class AnalysisServiceImpl extends ServiceImpl<AnalysisMapper, Analysis> i
             return null; // 如果没有找到对应的分析，则返回null或者抛出异常
         }
 
-        Content content = contentMapper.selectById(analysis.getContentId()); // 通过Analysis中的contentId获取对应的Content实体
+        Content content = contentMapper.selectById(analysis.getId()); // 通过Analysis中的Id获取对应的Content实体
 
         DetailVO detailVO = new DetailVO();
         detailVO.setId(analysis.getId());

@@ -4,8 +4,7 @@ import lombok.Data;
 
 @Data
 public class Analysis {
-    int id;
-    int contentId;
+    long id;
     long userId;
     String analysisScore;
     String analysisLabel;

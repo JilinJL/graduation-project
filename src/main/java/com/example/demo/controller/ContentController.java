@@ -24,11 +24,15 @@ import org.springframework.web.bind.annotation.*;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static cn.hutool.json.XML.toJSONObject;
 
 @RestController
 @RequestMapping("/api/content")
@@ -56,33 +60,50 @@ public class ContentController {
     @PostMapping("/addContent")
     @ApiOperation("新增内容记录")
     public R addContent( ContentDTO contentDTO) throws Exception {
-//        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-//        Instant instant = Instant.from(formatter.parse(contentDTO.getContentTime()));
-//        Timestamp timestamp = Timestamp.from(instant);
 
         Content content = new Content();
         content.setContentData(contentDTO.getContentData());
-//        content.setContentTime(timestamp);
         content.setUserId(contentDTO.getUserId());
         content.setContentTitle(contentDTO.getContentTitle());
+
+        contentService.save(content);
         try {
-            contentService.save(content);
+
+
             //TODO: 调用大模型分析此条记录
             String urlString = "http://localhost:11434/api/chat";
 
-            String requestBody = "{ " +
-                    "\"model\": \"" + constent.getModel1() + "\", " +
+/*            String requestBody = "{ " +
+                    "\"model\": \"" + constent.getModel(contentDTO.getModel()) + "\", " +
                     "\"messages\": [{ " +
                     "\"role\": \"user\", " +
-                    "\"content\": \"" + constent.getType(contentDTO.getType()) + contentDTO.getContentData() +
+                    "\"content\": \"" + constent.getType(contentDTO.getType()) + contentDTO.getContentData().toString() +
                     "\" }] " +
-                    "}";
+                    "}";*/
+
+            JSONObject requestBody = new JSONObject();
+            ArrayList messages = new ArrayList();
+
+            JSONObject assistantMessage = new JSONObject();
+            assistantMessage.put("role", "assistant");
+            assistantMessage.put("content", constent.getType(contentDTO.getType()));
+            messages.add(assistantMessage);
+
+            JSONObject userMessage = new JSONObject();
+            userMessage.put("role", "user");
+            userMessage.put("content", contentDTO.getContentData().toString());
+            messages.add(userMessage);
+
+            requestBody.put("messages",messages); // 直接将messages作为JSONArray对象放入requestBody
+            requestBody.put("model", constent.getModel(contentDTO.getModel()));
+
+            System.out.println(requestBody.toJSONString());
             String analysisData = "生成失败";
             try {
-                String response = sendPostRequest(urlString, requestBody);
-                analysisData = extractContent(response);
-                System.out.println(extractContent(response));
-
+                String response = sendPostRequest(urlString, String.valueOf(requestBody));
+                analysisData = extractContent(response).replaceAll("\r\n", "");
+                System.out.println("-------");
+                System.out.println(analysisData);
             } catch (Exception e) {
                 e.printStackTrace();
                 return R.error(ResponseEnum.INSERT_ERROR);
@@ -133,23 +154,19 @@ public class ContentController {
         // 关闭连接
         connection.disconnect();
         // 返回响应内容
-        System.out.println(response);
         return response.toString();
     }
 
     public static String extractContent(String input) {
         StringBuilder result = new StringBuilder();
 
-        // 找到所有 "content" 字段的位置
+        System.out.println("以下是格式化前的数据");
+        System.out.println(input);
         int startIndex = input.indexOf("\"content\"");
         while (startIndex != -1) {
-            // 找到 content 的值的起始位置
             int valueStartIndex = input.indexOf("\"", startIndex + 10) + 1;
-            // 找到 content 的值的结束位置
             int valueEndIndex = input.indexOf("\"", valueStartIndex);
-            // 提取 content 的值并添加到结果中
             result.append(input.substring(valueStartIndex, valueEndIndex));
-            // 继续查找下一个 "content" 字段的位置
             startIndex = input.indexOf("\"content\"", valueEndIndex);
         }
 
