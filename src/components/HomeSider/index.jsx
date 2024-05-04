@@ -57,17 +57,17 @@ const HomeSider = props => {
 		{
 			key: "1",
 			label: "今天",
-			children: sortList.today.map(data => <AnalysisTags key={data.id} data={data} />),
+			children: sortList.today.map(data => <AnalysisTags setContentList={props.setContentList} contentList={props.contentList} key={data.id} data={data} />),
 		},
 		{
 			key: "2",
 			label: "一周内",
-			children: sortList.lastSevenDays.map(data => <AnalysisTags key={data.id} data={data} />),
+			children: sortList.lastSevenDays.map(data => <AnalysisTags setContentList={props.setContentList} contentList={props.contentList} key={data.id} data={data} />),
 		},
 		{
 			key: "3",
 			label: "更久",
-			children: sortList.other.map(data => <AnalysisTags key={data.id} data={data} />),
+			children: sortList.other.map(data => <AnalysisTags setContentList={props.setContentList} contentList={props.contentList} key={data.id} data={data} />),
 		},
 	];
 
@@ -132,7 +132,7 @@ const HomeSider = props => {
 								key: "1",
 								label: "搜索结果",
 								showArrow: false,
-								children: searchResults.map(data => <AnalysisTags key={data.id} data={data} />),
+								children: searchResults.map(data => <AnalysisTags setContentList={props.setContentList} contentList={props.contentList} key={data.id} data={data} />),
 							},
 						]}
 						defaultActiveKey={["1"]}

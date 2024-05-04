@@ -13,7 +13,7 @@ import ErrorPage from "@/error-page.jsx"
 import AnalysisView from "../pages/Analysis/AnalysisView";
 import ContentView  from "../pages/Content/ContentView";
 import PrivateRoute from "./PrivateRoute";
-
+import WordsCloudView from "../pages/WordsCloud/WordsCloudView";
 
 
 const router = createBrowserRouter([
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
             path: "newContent",
             element: <PrivateRoute element={ContentView} />,
           },
+          {
+            path: "wordsCloud",
+            element: <PrivateRoute element={WordsCloudView} />,
+          }
         ],
       },
     ],

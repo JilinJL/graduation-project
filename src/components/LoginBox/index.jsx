@@ -105,7 +105,8 @@ const LoginBox = props => {
 					<div className='switch_circle'></div>
 					<div className='switch_container' id='switch-c1'>
 						<h2 className={("switch_title", "title")} style={{ letterSpacing: 0 }}>
-							NLP内容生成系统
+							NLP情感分析系统
+							{/* 智旅AI定制系统 */}
 						</h2>
 					</div>
 				</div>

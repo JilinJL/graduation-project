@@ -206,7 +206,7 @@ const AnalysisView = props => {
 				xl: 3,
 				xxl: 6,
 			},
-			children: <div style={{ width: window.innerWidth <= 800 ? "70%" : "100%", fontWeight: "700", color: "#101010" }}>{analysisData?.analysisResult}</div>,
+			children: <div style={{width: window.innerWidth <= 800 ? "70%" : "100%", fontWeight: "700", color: "#101010" }}> <pre>{analysisData?.analysisResult}</pre> </div>,
 		},
 		{
 			label: "可视化分析",
@@ -293,7 +293,7 @@ const AnalysisView = props => {
 				title={store.analysis}
 				bordered
 				size='small'
-				extra={<Button type='primary'>导出</Button>}
+				// extra={<Button type='primary'>导出</Button>}
 				column={{
 					xs: 1,
 					sm: 1,

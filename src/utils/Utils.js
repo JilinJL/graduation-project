@@ -79,44 +79,59 @@ const Utils = {
 
 
 // 分析结果内容
-  formatResult(analysisString){
-
-    if(str.includes("Recommend")){
-      return {
-        analysisLabel: null,
-        analysisScore: null,
-        analysisResult: str.replace(/\\n/g, '\n'),
-      }
+  formatResult(str){
+    // 提取Label到Score之间的内容
+    let labelToScoreRegex = /analysisLabel(.+?)analysisScore/g;
+    let labelToScoreMatches = str.matchAll(labelToScoreRegex);
+    let labelToScoreContents = [];
+    for (const match of labelToScoreMatches) {
+        labelToScoreContents.push(match[1].trim());
     }
-    if(str.includes("Transform")){
-      return {
-        analysisLabel: null,
-        analysisScore: null,
-        analysisResult: str.replace(/\\n/g, '\n'),
-      }
+
+    // 提取Score到Result之间的内容
+    let scoreToResultRegex = /analysisScore(.+?)analysisResult/g;
+    let scoreToResultMatches = str.matchAll(scoreToResultRegex);
+    let scoreToResultContents = [];
+    for (const match of scoreToResultMatches) {
+        scoreToResultContents.push(match[1].trim());
     }
-    
 
-    // 去除字符串中的转义符号
-    analysisString = analysisString.replace(/\\/g, '');
+    // 提取Result之后的内容
+    let resultToEndRegex = /analysisResult(.+)/g;
+    let resultToEndMatches = str.matchAll(resultToEndRegex);
+    let resultToEndContents = [];
+    for (const match of resultToEndMatches) {
+        resultToEndContents.push(match[1].trim());
+    }
 
-    // 根据分隔符划分成数组
-    const parts = analysisString.split('\\n\\');
+    return {
+        analysisLabel: labelToScoreContents,
+        analysisScore: scoreToResultContents,
+        analysisResult: resultToEndContents
+    };
+},
 
-    // 去除数组中的空项
-    const cleanedParts = parts.filter(part => part.trim() !== '');
 
-    // 创建对象并提取属性值
-    const result = {};
-    cleanedParts.forEach(part => {
-        const [key, value] = part.split('\\ ');
-        result[key] = value.trim();
-    });
+  countValue(arr=[]){
+    const wordCount = {};
+    const totalWords = arr.length;
 
-    return result;
+    // 计算每个 w 值的频率
+    for (const item of arr) {
+        const word = item.w;
+        wordCount[word] = (wordCount[word] || 0) + 1;
+    }
+
+    // 根据频率计算 value 值
+    const formattedArray = [];
+    for (const word in wordCount) {
+        const frequency = wordCount[word];
+        const value = (frequency / totalWords).toFixed(2)*100;
+        formattedArray.push({ name: word, value: parseFloat(value) });
+    }
+
+    return formattedArray;
   }
-
-
   };
   
   export default Utils;

@@ -94,7 +94,11 @@ class HomeModel {
         this.stopLoading();
         const a = await this.getContent(localStorage.getItem('userId'));
         this.newContent = a[a.length - 1];
-        this.analysisObj = Utils.formatResult(data.data)
+/*         console.log(data.data,"结果")
+        this.analysisObj = Utils.formatResult(data.data) */
+        this.analysisObj = {
+          analysisResult: data.data,
+        }
       }
     } catch(e) {
         this.stopLoading();

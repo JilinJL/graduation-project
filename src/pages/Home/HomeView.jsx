@@ -60,7 +60,7 @@ const HomeView = () => {
 			analysisResult: store?.analysisObj?.analysisResult,
 			analysisTitle: store?.newContent?.contentTitle,
 		});
-		message.loading('正在跳转...',1.8)
+		message.loading('正在跳转...',1)
 		setTimeout(() => {
 			navigate(store.newContent?.id ? `/analysis/${store.newContent.id}` : "/");
 		}, 2000);

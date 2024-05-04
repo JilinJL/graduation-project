@@ -19,7 +19,11 @@ export default {
         },
         Popover:{
             titleMinWidth:"10rem",
-        }
+        },
+        Transfer: {
+            listHeight: "24rem",
+            listWidth: "16rem",
+          },
       },
   };
   

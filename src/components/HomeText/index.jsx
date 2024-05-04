@@ -47,7 +47,7 @@ const HomeText = props => {
 
     },[props])
 	return (
-		<Row gutter={24}>
+		<Row className="row" gutter={24}>
 			<Col span={7}>
 			<Card title={mod[props.model]?.title || '-'} bordered={false}>
                    {mod[props?.model]?.text || '-'}

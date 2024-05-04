@@ -13,7 +13,6 @@ const AnalysisTags = props => {
 	
 	const handleDelete = e => {
 		e.preventDefault();
-		console.log("删除", e);
 	};
 
 	const confirm =async e => {
@@ -28,7 +27,8 @@ const AnalysisTags = props => {
 		  });
 		  if(data){
 			message.success("删除成功");
-			store.getContent(localStorage.getItem('userId') || '');
+			// location.reload()
+			props.setContentList(props.contentList.filter(c=>c.id!=props?.data?.id))
 		  }else{
 			message.error("删除失败,请稍后重试");
 		  }
