@@ -144,18 +144,18 @@ const AnalysisView = props => {
 				md: 1,
 				lg: 1,
 				xl: 1,
-				xxl: 1,
+				xxl: 12,
 			},
 		},
 		{
 			label: "时间",
 			children: <div>{analysisData?.contentTime}</div>,
 			span: {
-				xs: 1,
-				md: 1,
-				lg: 1,
-				xl: 1,
-				xxl: 1,
+				xs: 2,
+				md: 2,
+				lg: 2,
+				xl: 2,
+				xxl: 12,
 			},
 		},
 		{
@@ -184,7 +184,7 @@ const AnalysisView = props => {
 				md: 3,
 				lg: 3,
 				xl: 3,
-				xxl: 6,
+				xxl: 12,
 			},
 			children: (
 				<div
@@ -236,7 +236,7 @@ const AnalysisView = props => {
 			md: 1,
 			lg: 1,
 			xl: 1,
-			xxl: 1,
+			xxl: 4,
 		},
 	},
 	{
@@ -253,11 +253,11 @@ const AnalysisView = props => {
 	{
 		label: "内容",
 		span: {
-			xs: 3,
-			md: 3,
-			lg: 3,
-			xl: 3,
-			xxl: 6,
+			xs: 2,
+			md: 2,
+			lg: 12,
+			xl: 12,
+			xxl: 12,
 		},
 		children: (
 			<div
@@ -295,11 +295,11 @@ const AnalysisView = props => {
 				size='small'
 				// extra={<Button type='primary'>导出</Button>}
 				column={{
-					xs: 1,
-					sm: 1,
-					md: 3,
-					lg: 3,
-					xl: 3,
+					xs: 12,
+					sm: 12,
+					md: 12,
+					lg: 12,
+					xl: 12,
 					xxl: 6,
 				}}
 				items={items}

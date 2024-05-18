@@ -5,7 +5,7 @@ import { Typography } from "antd";
 const { Title } = Typography;
 import { Layout, Menu, theme, Select, Tour } from "antd";
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from "@ant-design/icons";
-import { UploadOutlined, UserOutlined, VideoCameraOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { UploadOutlined,PicRightOutlined, UserOutlined, VideoCameraOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -28,8 +28,8 @@ const HomeHeader = props => {
 		{
 			label: (
 				<a href='https://ant.design' target='_blank' rel='noopener noreferrer'>
-					<SettingOutlined /> &nbsp;
-					项目详情
+					<PicRightOutlined /> &nbsp;
+					情感字典
 				</a>
 			),
 			key: "details",
