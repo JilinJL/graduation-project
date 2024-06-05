@@ -60,27 +60,14 @@ public class ContentController {
     @PostMapping("/addContent")
     @ApiOperation("新增内容记录")
     public R addContent( ContentDTO contentDTO) throws Exception {
-
         Content content = new Content();
         content.setContentData(contentDTO.getContentData());
         content.setUserId(contentDTO.getUserId());
         content.setContentTitle(contentDTO.getContentTitle());
-
         contentService.save(content);
         try {
-
-
-            //TODO: 调用大模型分析此条记录
+            //TODO: 调用本地模型分析此条记录
             String urlString = "http://localhost:11434/api/chat";
-
-/*            String requestBody = "{ " +
-                    "\"model\": \"" + constent.getModel(contentDTO.getModel()) + "\", " +
-                    "\"messages\": [{ " +
-                    "\"role\": \"user\", " +
-                    "\"content\": \"" + constent.getType(contentDTO.getType()) + contentDTO.getContentData().toString() +
-                    "\" }] " +
-                    "}";*/
-
             JSONObject requestBody = new JSONObject();
             ArrayList messages = new ArrayList();
 
@@ -110,7 +97,6 @@ public class ContentController {
             }
             return R.ok(analysisData);
         }catch (Exception e){
-
             return R.error(ResponseEnum.INSERT_ERROR);
         }
     }
@@ -160,8 +146,8 @@ public class ContentController {
     public static String extractContent(String input) {
         StringBuilder result = new StringBuilder();
 
-        System.out.println("以下是格式化前的数据");
-        System.out.println(input);
+/*        System.out.println("以下是格式化前的数据");
+        System.out.println(input);*/
         int startIndex = input.indexOf("\"content\"");
         while (startIndex != -1) {
             int valueStartIndex = input.indexOf("\"", startIndex + 10) + 1;
