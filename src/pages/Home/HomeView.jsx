@@ -97,13 +97,6 @@ const HomeView = () => {
 					handleSubmit={handleSubmit}
 					store={store}
 				/>
-				{/* 				<Footer
-					style={{
-						textAlign: "center",
-					}}
-				>
-				
-				</Footer> */}
 			</Layout>
 			<Tour open={open} onClose={() => setOpen(false)} steps={steps} />
 		</Layout>
